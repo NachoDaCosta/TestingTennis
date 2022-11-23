@@ -134,6 +134,7 @@ test('Adv1',()=>{
     expect(game.getScore()).toBe("Adv1")
 })
 
+
 test('Game Player One after Deuce',()=>{
     const game=new TennisGame(5,3); /*Gana el 1 por adv1 */
     expect(game.getScore()).toBe("Game Player One Deuce")
@@ -153,47 +154,105 @@ class TennisGame{
     }
 
     getScore(){
-        let Win1="Game Player One Deuce" 
-        let Win2="Game Player Two Deuce"
-        let GameP1="Game Player One"
-        let GameP2="Game Player Two"
-        /*Empates */
-        let Loveall="Love-All"
-        let QAll="15-All"
-        let Tall="30-All"
-        let Deuce="Deuce"
-        /*Diferencias */
-        let L15="Love-15"
-        let L30="Love-30"
-        let L40="Love-40"
+        let Loveall="Love-All" /*(0,0) */   
+         let L15="Love-15"     /*(0,1)*/
+        let L30="Love-30"      /*(0,2)*/
+        let L40="Love-40"      /*(0,3)*/
+        let GameP1="Game Player One" /*(4,2)(4,1)(4,0)*/
+        let GameP2="Game Player Two" /*(2,4)(1,4)(0,4)*/
+        let Win1="Game Player One Deuce" /*(5,3)*/
+        let ql="15-Love" /*(1,0)*/
+        let QAll="15-All" /*(1-1)*/
+        let q30="15-30" /*(1,2)*/
+        let q40="15-40" /*(1,3)*/
+        let tl="30-Love" /*(2,0)*/
+        let t15="30-15" /*(2,1)*/
+        let Tall="30-All"   /*(2-2)*/
+         let t40="30-40" /*(2,3)*/
+        let cl="40-Love" /*(3,0)*/
+        let c15="40-15" /*(3,1)*/
+        let c30="40-30" /*(3,2)*/
+        let Deuce="Deuce" /*(3-3)*/
+        let adv2="Adv2" /*3-4 */
+        let Win2="Game Player Two Deuce" /*(3,5)*/
+        let adv1="Adv1" /*4-3 */
         
-        /*Caluclo de Diferencia */
+        
+       if (this.scorePlayerOne==0 && this.scorePlayerTwo==0){ /*Empate en 0-0 */
+            return Loveall
+        }
+        if (this.scorePlayerOne==0 && this.scorePlayerTwo==1){ /*0-15*/
+            return L15
+        }
+        if (this.scorePlayerOne==0 && this.scorePlayerTwo==2){ /*0-30 */
+            return L30
+        }
+        if (this.scorePlayerOne==0 && this.scorePlayerTwo==3){/*0-40 */
+            return L40
+        }
+        if (this.scorePlayerOne==1 && this.scorePlayerTwo==0){ /*15-0 */
+            return ql
+        }
+        if (this.scorePlayerOne==1 && this.scorePlayerTwo==1){ /*Empate en 15-15 */
+            return QAll
+        }
+        if (this.scorePlayerOne==1 && this.scorePlayerTwo==2){ /*Empate en 15-30 */
+            return q30
+        }
+        if (this.scorePlayerOne==1 && this.scorePlayerTwo==3){ /*15-40 */
+            return q40
+        }
+        if (this.scorePlayerOne==2 && this.scorePlayerTwo==0){/*30-0 */
+            return tl
+        }
+        if (this.scorePlayerOne==2 && this.scorePlayerTwo==1){ /*30-15 */
+            return t15
+        }
+        if (this.scorePlayerOne==2 && this.scorePlayerTwo==2){ /*Empate en 30-30 */
+            return Tall
+        }
+        if (this.scorePlayerOne==2 && this.scorePlayerTwo==3){ /*30-40 */
+            return t40
+        }
+        if (this.scorePlayerOne==3 && this.scorePlayerTwo==0){ /*40-0 */
+            return cl
+        }
+        if (this.scorePlayerOne==3 && this.scorePlayerTwo==1){ /*40-15 */
+            return c15
+        }
+        if (this.scorePlayerOne==3 && this.scorePlayerTwo==2){ /*40-30 */
+            return c30
+        }
+
+
         if (this.scorePlayerOne>=3 && this.scorePlayerTwo>=3){  /*Deuce y victoria por deuce */
-            if (this.Diferencia1()==2){
-                return Win1
+            if (this.Diferencia1()==2){ /*60-40 */
+                return Win1  
             }
-            if (this.Diferencia2()==2){
+            if (this.Diferencia2()==2){ /*40-60 */
                 return Win2
             }
-            if(diferencia1==0 || diferencia2==0){
-                return Deuce
+            if (this.Diferencia1()==1){ /*60-40 */
+                return adv1  
             }
+            if (this.Diferencia2()==1){ /*40-60 */
+                return adv2
+            }
+        
         }
-        if (this.scorePlayerOne==4 && this.scorePlayerTwo<3){ /*victorias de p1 */
+        
+        if (this.scorePlayerOne==4 && this.scorePlayerTwo<3 ){ /*victorias de p1  (4.1)(4.2)*/ 
             return GameP1
+        }
+        if (this.scorePlayerOne==3 && this.scorePlayerTwo==3 ){ /*victorias de p1  (4.1)(4.2)*/ 
+            return Deuce
         }
         if (this.scorePlayerOne<3 && this.scorePlayerTwo==4){ /*victorias de p2 */
             return GameP2
         }
-        if (this.scorePlayerOne==0 && this.scorePlayerTwo==0){ /*Empate en 0 */
-            return Loveall
-        }
-        if (this.scorePlayerOne==1 && this.scorePlayerTwo==1){ /*Empate en 0 */
-            return QAll
-        }
-        if (this.scorePlayerOne==2 && this.scorePlayerTwo==2){ /*Empate en 0 */
-            return Tall
-        }
+        
+        
+        
     }
 
     Diferencia2() {
