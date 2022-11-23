@@ -167,13 +167,11 @@ class TennisGame{
         let L30="Love-30"
         let L40="Love-40"
         /*Caluclo de Diferencia */
-        let diferencia1=this.scorePlayerOne-this.scorePlayerTwo
-        let diferencia2=this.scorePlayerTwo-this.scorePlayerOne
         if (this.scorePlayerOne>=3 && this.scorePlayerTwo>=3){  /*Deuce y victoria por deuce */
-            if (diferencia1==2){
+            if (this.Diferencia1()==2){
                 return Win1
             }
-            if (diferencia2==2){
+            if (this.Diferencia2()==2){
                 return Win2
             }
             if(diferencia1==0 || diferencia2==0){
@@ -195,6 +193,14 @@ class TennisGame{
         if (this.scorePlayerOne==2 && this.scorePlayerTwo==2){ /*Empate en 0 */
             return Tall
         }
+    }
+
+    Diferencia2() {
+        return this.scorePlayerTwo - this.scorePlayerOne;
+    }
+
+    Diferencia1() {
+        return this.scorePlayerOne - this.scorePlayerTwo;
     }
 }
 
