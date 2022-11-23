@@ -1,10 +1,7 @@
 const greeting = require('./greeting')
 const expect = require("expect");
 
-
-
 /*Comienzo de partido */
-
 
 test('Start Game Love-All',()=>{
     const game=new TennisGame(0,0);
@@ -140,15 +137,28 @@ test('Game Player One after Deuce',()=>{
     expect(game.getScore()).toBe("Game Player One Deuce")
 })
 
+test('Test Won Point',()=>{
+    const game=new TennisGame(0,0); 
+    game.wonPoint("Player One")
+    expect(game.getScore()).toBe("15-Love")
+})
+
 
 class TennisGame{
-    constructor(scorePlayerOne,scorePlayerTwo){
+    constructor(scorePlayerOne,scorePlayerTwo,PlayerOne,PlayerTwo){
         this.scorePlayerOne=scorePlayerOne;
         this.scorePlayerTwo=scorePlayerTwo;
+        this.PlayerOne=PlayerOne
+        this.PlayerTwo=PlayerTwo
     }
 
    wonPoint(player){
-        return this.score++;
+        if (player=="Player One"){
+            this.scorePlayerOne++
+        }
+        if(player=="Player Two"){
+            this.scorePlayerTwo++
+        }
     }
 
     getScore(){
@@ -200,7 +210,6 @@ class TennisGame{
         if (this.C30()){ /*40-30 */
             return c30
         }
-
         if (this.Deuce()){  /*Deuce y victoria por deuce */
             if (this.Diferencia1()==2){ /*60-40 */
                 return Win1  
