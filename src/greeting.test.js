@@ -166,6 +166,7 @@ class TennisGame{
         let L15="Love-15"
         let L30="Love-30"
         let L40="Love-40"
+        
         /*Caluclo de Diferencia */
         if (this.scorePlayerOne>=3 && this.scorePlayerTwo>=3){  /*Deuce y victoria por deuce */
             if (this.Diferencia1()==2){
