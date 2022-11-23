@@ -141,8 +141,6 @@ test('Game Player One after Deuce',()=>{
 })
 
 
-
-
 class TennisGame{
     constructor(scorePlayerOne,scorePlayerTwo){
         this.scorePlayerOne=scorePlayerOne;
@@ -154,78 +152,56 @@ class TennisGame{
     }
 
     getScore(){
-        let Loveall="Love-All" /*(0,0) */   
-         let L15="Love-15"     /*(0,1)*/
-        let L30="Love-30"      /*(0,2)*/
-        let L40="Love-40"      /*(0,3)*/
-        let GameP1="Game Player One" /*(4,2)(4,1)(4,0)*/
-        let GameP2="Game Player Two" /*(2,4)(1,4)(0,4)*/
-        let Win1="Game Player One Deuce" /*(5,3)*/
-        let ql="15-Love" /*(1,0)*/
-        let QAll="15-All" /*(1-1)*/
-        let q30="15-30" /*(1,2)*/
-        let q40="15-40" /*(1,3)*/
-        let tl="30-Love" /*(2,0)*/
-        let t15="30-15" /*(2,1)*/
-        let Tall="30-All"   /*(2-2)*/
-         let t40="30-40" /*(2,3)*/
-        let cl="40-Love" /*(3,0)*/
-        let c15="40-15" /*(3,1)*/
-        let c30="40-30" /*(3,2)*/
-        let Deuce="Deuce" /*(3-3)*/
-        let adv2="Adv2" /*3-4 */
-        let Win2="Game Player Two Deuce" /*(3,5)*/
-        let adv1="Adv1" /*4-3 */
+        let { Loveall, L15, L30, L40, ql, QAll, q30, q40, tl, t15, Tall, t40, cl, c15, c30, Win1, Win2, adv1, adv2, Deuce, GameP1, GameP2 } = this.Resultados(); /*4-3 */
         
-        
-       if (this.scorePlayerOne==0 && this.scorePlayerTwo==0){ /*Empate en 0-0 */
+        /*Todos Los Test */
+       if (this.LoveAll()){ /*Empate en 0-0 */
             return Loveall
         }
-        if (this.scorePlayerOne==0 && this.scorePlayerTwo==1){ /*0-15*/
+        if (this.Love15()){ /*0-15*/
             return L15
         }
-        if (this.scorePlayerOne==0 && this.scorePlayerTwo==2){ /*0-30 */
+        if (this.Love30()){ /*0-30 */
             return L30
         }
-        if (this.scorePlayerOne==0 && this.scorePlayerTwo==3){/*0-40 */
+        if (this.Love40()){/*0-40 */
             return L40
         }
-        if (this.scorePlayerOne==1 && this.scorePlayerTwo==0){ /*15-0 */
+        if (this.QLove()){ /*15-0 */
             return ql
         }
-        if (this.scorePlayerOne==1 && this.scorePlayerTwo==1){ /*Empate en 15-15 */
+        if (this.QAll()){ /*Empate en 15-15 */
             return QAll
         }
-        if (this.scorePlayerOne==1 && this.scorePlayerTwo==2){ /*Empate en 15-30 */
+        if (this.Q30()){ /*Empate en 15-30 */
             return q30
         }
-        if (this.scorePlayerOne==1 && this.scorePlayerTwo==3){ /*15-40 */
+        if (this.Q40()){ /*15-40 */
             return q40
         }
-        if (this.scorePlayerOne==2 && this.scorePlayerTwo==0){/*30-0 */
+        if (this.TLove()){/*30-0 */
             return tl
         }
-        if (this.scorePlayerOne==2 && this.scorePlayerTwo==1){ /*30-15 */
+        if (this.T15()){ /*30-15 */
             return t15
         }
-        if (this.scorePlayerOne==2 && this.scorePlayerTwo==2){ /*Empate en 30-30 */
+        if (this.TAll()){ /*Empate en 30-30 */
             return Tall
         }
-        if (this.scorePlayerOne==2 && this.scorePlayerTwo==3){ /*30-40 */
+        if (this.T40()){ /*30-40 */
             return t40
         }
-        if (this.scorePlayerOne==3 && this.scorePlayerTwo==0){ /*40-0 */
+        if (this.CLove()){ /*40-0 */
             return cl
         }
-        if (this.scorePlayerOne==3 && this.scorePlayerTwo==1){ /*40-15 */
+        if (this.C15()){ /*40-15 */
             return c15
         }
-        if (this.scorePlayerOne==3 && this.scorePlayerTwo==2){ /*40-30 */
+        if (this.C30()){ /*40-30 */
             return c30
         }
 
-
-        if (this.scorePlayerOne>=3 && this.scorePlayerTwo>=3){  /*Deuce y victoria por deuce */
+        if (this.Deuce()){  /*Deuce y victoria por deuce */
             if (this.Diferencia1()==2){ /*60-40 */
                 return Win1  
             }
@@ -238,21 +214,115 @@ class TennisGame{
             if (this.Diferencia2()==1){ /*40-60 */
                 return adv2
             }
-        
+            if (this.Diferencia1()==0){ /*60-40 */
+                return Deuce  
+            }
         }
         
-        if (this.scorePlayerOne==4 && this.scorePlayerTwo<3 ){ /*victorias de p1  (4.1)(4.2)*/ 
+        if (this.Victoriasp1() ){ /*victorias de p1  (4.1)(4.2)*/ 
             return GameP1
         }
-        if (this.scorePlayerOne==3 && this.scorePlayerTwo==3 ){ /*victorias de p1  (4.1)(4.2)*/ 
-            return Deuce
-        }
-        if (this.scorePlayerOne<3 && this.scorePlayerTwo==4){ /*victorias de p2 */
+        if (this.Victoriasp2()){ /*victorias de p2 */
             return GameP2
         }
-        
-        
-        
+    }
+
+    Resultados() {
+        let Loveall = "Love-All"; /*(0,0) */
+        let L15 = "Love-15"; /*(0,1)*/
+        let L30 = "Love-30"; /*(0,2)*/
+        let L40 = "Love-40"; /*(0,3)*/
+        let GameP1 = "Game Player One"; /*(4,2)(4,1)(4,0)*/
+        let GameP2 = "Game Player Two"; /*(2,4)(1,4)(0,4)*/
+        let Win1 = "Game Player One Deuce"; /*(5,3)*/
+        let ql = "15-Love"; /*(1,0)*/
+        let QAll = "15-All"; /*(1-1)*/
+        let q30 = "15-30"; /*(1,2)*/
+        let q40 = "15-40"; /*(1,3)*/
+        let tl = "30-Love"; /*(2,0)*/
+        let t15 = "30-15"; /*(2,1)*/
+        let Tall = "30-All"; /*(2-2)*/
+        let t40 = "30-40"; /*(2,3)*/
+        let cl = "40-Love"; /*(3,0)*/
+        let c15 = "40-15"; /*(3,1)*/
+        let c30 = "40-30"; /*(3,2)*/
+        let Deuce = "Deuce"; /*(3-3)*/
+        let adv2 = "Adv2"; /*3-4 */
+        let Win2 = "Game Player Two Deuce"; /*(3,5)*/
+        let adv1 = "Adv1"; /*4-3 */
+        return { Loveall, L15, L30, L40, ql, QAll, q30, q40, tl, t15, Tall, t40, cl, c15, c30, Win1, Win2, adv1, adv2, Deuce, GameP1, GameP2 };
+    }
+
+    C30() {
+        return this.scorePlayerOne == 3 && this.scorePlayerTwo == 2;
+    }
+
+    C15() {
+        return this.scorePlayerOne == 3 && this.scorePlayerTwo == 1;
+    }
+
+    CLove() {
+        return this.scorePlayerOne == 3 && this.scorePlayerTwo == 0;
+    }
+
+    T40() {
+        return this.scorePlayerOne == 2 && this.scorePlayerTwo == 3;
+    }
+
+    TAll() {
+        return this.scorePlayerOne == 2 && this.scorePlayerTwo == 2;
+    }
+
+    T15() {
+        return this.scorePlayerOne == 2 && this.scorePlayerTwo == 1;
+    }
+
+    TLove() {
+        return this.scorePlayerOne == 2 && this.scorePlayerTwo == 0;
+    }
+
+    Q40() {
+        return this.scorePlayerOne == 1 && this.scorePlayerTwo == 3;
+    }
+
+    Q30() {
+        return this.scorePlayerOne == 1 && this.scorePlayerTwo == 2;
+    }
+
+    QAll() {
+        return this.scorePlayerOne == 1 && this.scorePlayerTwo == 1;
+    }
+
+    QLove() {
+        return this.scorePlayerOne == 1 && this.scorePlayerTwo == 0;
+    }
+
+    Love40() {
+        return this.scorePlayerOne == 0 && this.scorePlayerTwo == 3;
+    }
+
+    Love30() {
+        return this.scorePlayerOne == 0 && this.scorePlayerTwo == 2;
+    }
+
+    Love15() {
+        return this.scorePlayerOne == 0 && this.scorePlayerTwo == 1;
+    }
+
+    LoveAll() {
+        return this.scorePlayerOne == 0 && this.scorePlayerTwo == 0;
+    }
+
+    Deuce() {
+        return this.scorePlayerOne >= 3 && this.scorePlayerTwo >= 3;
+    }
+
+    Victoriasp1() {
+        return this.scorePlayerOne == 4 && this.scorePlayerTwo < 3;
+    }
+
+    Victoriasp2() {
+        return this.scorePlayerOne < 3 && this.scorePlayerTwo == 4;
     }
 
     Diferencia2() {
@@ -264,50 +334,3 @@ class TennisGame{
     }
 }
 
-
-
-/*
-class Tier{
-    constructor(topRange,baseFee,xsFee,highRange){
-        this.topRange = topRange;
-        this.baseFee = baseFee;
-        this.xsFee = xsFee;
-        this.highRange = highRange;
-    }
-
-    getComissionFromXS(revenue){
-        return this.xsFee * this.getXS(revenue)
-    }
-
-    getMoneyToPay(revenue){
-        return this.getComissionFromXS(revenue) + this.baseFee
-    }
-}
-
-const tiers = [
-    /*
-    new Tier(10000,0,.10,0),
-    new Tier(40000,1000,.09,10000),
-    new Tier(85000,3700,.08,40000),
-    new Tier(100000,7300,.07,85000),
-    new Tier(125000,8350,.06,100000),
-    new Tier(150000,9850,.05,125000),
-    new Tier(250000,11100,.041,150000),
-    new Tier(400000,15200,.0325,250000),
-    new Tier(500000,20075,.0275,400000),
-    new Tier(-1,22825,.035,500000)
-    
-]
-
-const calculatedComission = (revenue) =>{
-    let tier = tiers.find(withinRange(revenue))
-    if(tier == null){
-        tier = tiers[tiers.length-1]
-    }
-    return getCommision(tier.getMoneyToPay(revenue),revenue)
-}
-
-const withinRange = (revenue) => (tier) => revenue <= tier.topRange
-const getCommision = (howMuchToPay, revenue) => Math.round(((howMuchToPay/revenue)*100)*100)/100
-
-*/
