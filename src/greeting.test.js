@@ -138,10 +138,10 @@ test('Game Player One after Deuce',()=>{
     expect(game.getScore()).toBe("Game Player One Deuce")
 })
 
-test('Test Won Point',()=>{
-    const game=new TennisGame(0,0); 
-    game.wonPoint("Player One")
-    expect(game.getScore()).toBe("15-Love")
+test('Test Lose Point',()=>{
+    const game=new TennisGame(1,0); 
+    game.losePoint("Player One")
+    expect(game.getScore()).toBe("Love-All")
 })
 
 
@@ -162,8 +162,19 @@ class TennisGame{
         }
     }
 
+    losePoint(player){
+        if (player=="Player One"){
+            this.scorePlayerOne--
+        }
+        if (player=="Player Two"){
+            this.scorePlayerTwo--
+        }
+    }
+
     getScore(){
-        let { Loveall, L15, L30, L40, ql, QAll, q30, q40, tl, t15, Tall, t40, cl, c15, c30, Win1, Win2, adv1, adv2, Deuce, GameP1, GameP2 } = this.Resultados(); /*4-3 */
+        let { Loveall, L15, L30, L40, ql, QAll, q30, q40
+            , tl, t15, Tall, t40, cl, c15, c30, Win1, Win2
+            , adv1, adv2, Deuce, GameP1, GameP2 } = this.Resultados(); /*4-3 */
         
         /*Todos Los Test */
        if (this.LoveAll()){ /*Empate en 0-0 */
