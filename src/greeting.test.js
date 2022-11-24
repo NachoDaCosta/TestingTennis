@@ -97,7 +97,8 @@ test('40-30',()=>{
 
 test('40-40',()=>{
     const game=new TennisGame(3,3);
-    expect(game.getScore()).toBe("Deuce")
+    game.wonPoint("Player One")
+    expect(game.getScore()).toBe("Adv1")
 })
 
 test('Adv2',()=>{
